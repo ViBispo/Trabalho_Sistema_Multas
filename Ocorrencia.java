@@ -1,16 +1,18 @@
 public class Ocorrencia {
     private String tipo;
     private String logradouro;
-    private String data; // Para armazenar a data
-    private String placa; // Para armazenar a placa
+    private String data;
+    private String placa;
     private int velocidade;
+    private String horario; // Novo campo
 
-    public Ocorrencia(String tipo, String logradouro, String data, String placa, int velocidade) {
+    public Ocorrencia(String tipo, String logradouro, String data, String placa, int velocidade, String horario) {
         this.tipo = tipo;
         this.logradouro = logradouro;
         this.data = data;
         this.placa = placa;
         this.velocidade = velocidade;
+        this.horario = horario;
     }
 
     public String getTipo() {
@@ -32,7 +34,12 @@ public class Ocorrencia {
     public int getVelocidade() {
         return velocidade;
     }
+
+    public String getHorario() {
+        return horario;
+    }
 }
+
 
 
 

@@ -1,6 +1,6 @@
 public class RegraCorredorOnibus extends RegraMulta {
-    private int horarioInicio;
-    private int horarioFim;
+    private int horarioInicio; // Exemplo: 6 (6h)
+    private int horarioFim; // Exemplo: 23 (23h)
     private String logradouro;
 
     public RegraCorredorOnibus(int horarioInicio, int horarioFim, String logradouro) {
@@ -12,14 +12,26 @@ public class RegraCorredorOnibus extends RegraMulta {
 
     @Override
     public Multa calcularMulta(Ocorrencia ocorrencia) {
-        if (ocorrencia.getTipo().equals("Corredor de Ônibus") && ocorrencia.getLogradouro().equals(logradouro)) {
-            // Exemplo de lógica de horário
-            int horaOcorrencia = 10; // Substituir pela lógica para capturar o horário real
-            if (horaOcorrencia >= horarioInicio && horaOcorrencia <= horarioFim) {
-                return new Multa("Corredor de Ônibus", 2, descricao);
+        if (ocorrencia.getTipo().equalsIgnoreCase("Corredor de Ônibus") &&
+            ocorrencia.getLogradouro().equalsIgnoreCase(logradouro)) {
+            
+            // Extração do horário da ocorrência
+            String horarioOcorrencia = ocorrencia.getHorario();
+            int hora = Integer.parseInt(horarioOcorrencia.split(":")[0]);
+            int minuto = Integer.parseInt(horarioOcorrencia.split(":")[1]);
+            int horarioTotalOcorrencia = hora * 60 + minuto;
+
+            // Converte o início e fim em minutos totais
+            int horarioTotalInicio = horarioInicio * 60; // 6h
+            int horarioTotalFim = horarioFim * 60; // 23h
+
+            if (horarioTotalOcorrencia >= horarioTotalInicio && horarioTotalOcorrencia <= horarioTotalFim) {
+                return new Multa("Corredor de Ônibus", 2, descricao + ". Horário registrado: " + horarioOcorrencia);
             }
         }
         return null;
     }
-}    
+}
+
+
 

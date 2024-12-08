@@ -28,19 +28,23 @@ public class MultasApp extends JFrame {
 
     private void abrirTelaCadastro() {
         JFrame frame = new JFrame("Cadastro de Ocorrência");
-        frame.setSize(400, 400);
-        frame.setLayout(new GridLayout(6, 2));
-
+        frame.setSize(500, 400);
+        frame.setLayout(new GridLayout(7, 2));
+    
         JComboBox<String> tipoMultaBox = new JComboBox<>(new String[]{"Velocidade", "Rodízio", "Corredor de Ônibus"});
         JComboBox<String> logradouroBox = new JComboBox<>(new String[]{
-            "Avenida Washington Luiz", "Avenida Nações Unidas", 
-            "Avenida Santo Amaro", "Avenida Bandeirantes", "Avenida 23 de Maio"
+            "Avenida Washington Luiz",
+            "Avenida Nações Unidas",
+            "Avenida Santo Amaro",
+            "Avenida Bandeirantes",
+            "Avenida 23 de Maio"
         });
         JTextField dataField = new JTextField();
         JTextField placaField = new JTextField();
         JTextField velocidadeField = new JTextField();
+        JTextField horarioField = new JTextField(); // Campo para horário
         JButton salvar = new JButton("Salvar");
-
+    
         frame.add(new JLabel("Tipo de Multa:"));
         frame.add(tipoMultaBox);
         frame.add(new JLabel("Logradouro:"));
@@ -51,17 +55,21 @@ public class MultasApp extends JFrame {
         frame.add(placaField);
         frame.add(new JLabel("Velocidade (se aplicável):"));
         frame.add(velocidadeField);
+        frame.add(new JLabel("Horário (HH:mm, se aplicável):")); // Novo campo
+        frame.add(horarioField);
         frame.add(new JLabel(""));
         frame.add(salvar);
-
+    
         salvar.addActionListener(_ -> {
             String tipoMulta = (String) tipoMultaBox.getSelectedItem();
             String logradouro = (String) logradouroBox.getSelectedItem();
-            String data = dataField.getText();
-            String placa = placaField.getText();
+            String data = dataField.getText().trim();
+            String placa = placaField.getText().trim();
+            String horario = horarioField.getText().trim();
             int velocidade = 0;
-
-            if (tipoMulta.equals("Velocidade")) {
+    
+            // Validação para velocidade
+            if (tipoMulta.equalsIgnoreCase("Velocidade")) {
                 try {
                     velocidade = Integer.parseInt(velocidadeField.getText().trim());
                     if (velocidade <= 0) {
@@ -73,15 +81,49 @@ public class MultasApp extends JFrame {
                     return;
                 }
             }
-
-            Ocorrencia ocorrencia = new Ocorrencia(tipoMulta, logradouro, data, placa, velocidade);
+    
+            // Validação para rodízio e corredor de ônibus
+            if (tipoMulta.equalsIgnoreCase("Rodízio") || tipoMulta.equalsIgnoreCase("Corredor de Ônibus")) {
+                if (placa.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "A placa do veículo é obrigatória para rodízio ou corredor de ônibus!");
+                    return;
+                }
+            }
+    
+            // Validação de horário para corredor de ônibus
+            if (tipoMulta.equalsIgnoreCase("Corredor de Ônibus")) {
+                if (horario.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "O horário é obrigatório para multas de corredor de ônibus!");
+                    return;
+                }
+                // Verifica formato do horário (HH:mm)
+                if (!horario.matches("\\d{2}:\\d{2}")) {
+                    JOptionPane.showMessageDialog(frame, "O horário deve estar no formato HH:mm!");
+                    return;
+                }
+            }
+    
+            // Verifica campos obrigatórios
+            if (data.isEmpty() || placa.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Os campos Data e Placa devem ser preenchidos!");
+                return;
+            }
+    
+            // Log para depuração
+            System.out.println("Cadastrando ocorrência: Tipo=" + tipoMulta + ", Logradouro=" + logradouro + 
+                               ", Data=" + data + ", Placa=" + placa + 
+                               ", Velocidade=" + velocidade + ", Horário=" + horario);
+    
+            // Criação da ocorrência
+            Ocorrencia ocorrencia = new Ocorrencia(tipoMulta, logradouro, data, placa, velocidade, horario);
             baseDeDados.getOcorrenciasNaoProcessadas().add(ocorrencia);
             JOptionPane.showMessageDialog(frame, "Ocorrência cadastrada com sucesso!");
             frame.dispose();
         });
-
+    
         frame.setVisible(true);
     }
+    
 
     private void abrirTelaVisualizacaoOcorrencias() {
         JFrame frame = new JFrame("Visualizar Ocorrências");
