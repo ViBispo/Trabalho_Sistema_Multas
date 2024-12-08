@@ -4,7 +4,7 @@ public class Ocorrencia {
     private String data;
     private String placa;
     private int velocidade;
-    private String horario; // Novo campo
+    private String horario; 
 
     public Ocorrencia(String tipo, String logradouro, String data, String placa, int velocidade, String horario) {
         this.tipo = tipo;
