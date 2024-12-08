@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 
 public class BaseDeDados {
-    private ArrayList<Ocorrencia> ocorrenciasProcessadas = new ArrayList<>();
     private ArrayList<Ocorrencia> ocorrenciasNaoProcessadas = new ArrayList<>();
-    private ArrayList<RegraMulta> regras = new ArrayList<>();
+    private ArrayList<Ocorrencia> ocorrenciasProcessadas = new ArrayList<>();
     private ArrayList<Multa> multas = new ArrayList<>();
+    private ArrayList<RegraMulta> regras = new ArrayList<>();
 
     public void inicializaRegras() {
         regras.add(new RegraVelocidade(60, "Avenida Washington Luiz"));
-        // Adicionar mais regras
+        regras.add(new RegraVelocidade(70, "Avenida Nações Unidas"));
+        regras.add(new RegraVelocidade(100, "Avenida Santo Amaro"));
     }
 
     public ArrayList<Ocorrencia> getOcorrenciasNaoProcessadas() {
@@ -19,11 +20,19 @@ public class BaseDeDados {
         return multas;
     }
 
-    public void carregarDados(String arquivo) {
-        // Lógica para carregar dados do arquivo
-    }
-
-    public void salvarDados(String arquivo) {
-        // Lógica para salvar dados em arquivo
+    public void processarOcorrencias() {
+        for (Ocorrencia ocorrencia : ocorrenciasNaoProcessadas) {
+            for (RegraMulta regra : regras) {
+                Multa multa = regra.calcularMulta(ocorrencia);
+                if (multa != null) {
+                    multas.add(multa);
+                }
+            }
+            ocorrenciasProcessadas.add(ocorrencia);
+        }
+        ocorrenciasNaoProcessadas.clear();
     }
 }
+
+
+

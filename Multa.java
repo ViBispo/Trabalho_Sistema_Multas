@@ -9,7 +9,6 @@ public class Multa {
         this.descricao = descricao;
     }
 
-    // Getters
     public String getTipo() {
         return tipo;
     }
@@ -21,9 +20,8 @@ public class Multa {
     public String getDescricao() {
         return descricao;
     }
-
-    public String getDetalhes() {
-        return "Tipo: " + tipo + ", Nível: " + nivel + ", Descrição: " + descricao;
-    }
 }
+
+
+
 

@@ -5,17 +5,21 @@ public class RegraVelocidade extends RegraMulta {
     public RegraVelocidade(int velocidadeMaxima, String logradouro) {
         this.velocidadeMaxima = velocidadeMaxima;
         this.logradouro = logradouro;
-        this.descricao = "Regra de Velocidade Máxima em " + logradouro;
+        this.descricao = "Excesso de velocidade em " + logradouro;
     }
 
     @Override
     public Multa calcularMulta(Ocorrencia ocorrencia) {
-        // Utilize velocidadeMaxima e logradouro na lógica aqui
-        if (ocorrencia.getLogradouro().equals(logradouro)) {
-            // Simular lógica de verificação da velocidade
-            int nivel = 1; // Exemplo
-            return new Multa("Velocidade", nivel, "Excedeu a velocidade máxima em " + logradouro);
+        if (ocorrencia.getLogradouro().equalsIgnoreCase(logradouro) && ocorrencia.getTipo().equalsIgnoreCase("Velocidade")) {
+            int velocidade = ocorrencia.getVelocidade();
+            if (velocidade > velocidadeMaxima) {
+                return new Multa("Velocidade", 1, descricao + ". Velocidade registrada: " + velocidade);
+            }
         }
-        return null; // Sem multa
+        return null;
     }
 }
+
+
+
+
