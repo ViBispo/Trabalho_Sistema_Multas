@@ -11,7 +11,7 @@ Nome: Luiz Guilherme Bittencourt
 Nome: João Pedro Ferreira Pellegrini
 
 ------------------------------------------------------------------------------------------------------
-Link Repositorio GitHub : https://github.com/ViBispo/Trabalho_Game
+Link Repositorio GitHub : [https://github.com/ViBispo/Trabalho_Game](https://github.com/ViBispo/Trabalho_Sistema_Multas)
 
 ------------------------------------------------------------------------------------------------------
 # Introdução📚
@@ -65,5 +65,5 @@ A execução do projeto reforçou a importância de boas práticas no desenvolvi
 - Interfaces gráficas são opcionais, mas neste projeto foram incluídas para melhor experiência do usuário.
 
 ------------------------------------------------------------------------------------------------------
-# Link do video🎞: https://youtu.be/xS3k7fX_8C8
+# Link do video🎞: [https://youtu.be/xS3k7fX_8C8](https://youtu.be/lQsiivbV8vA)
 
