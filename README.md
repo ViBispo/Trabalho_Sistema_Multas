@@ -11,7 +11,7 @@ Nome: Luiz Guilherme Bittencourt
 Nome: João Pedro Ferreira Pellegrini
 
 ------------------------------------------------------------------------------------------------------
-Link Repositorio GitHub : [https://github.com/ViBispo/Trabalho_Game](https://github.com/ViBispo/Trabalho_Sistema_Multas)
+Link Repositorio GitHub : (https://github.com/ViBispo/Trabalho_Sistema_Multas)
 
 ------------------------------------------------------------------------------------------------------
 # Introdução📚
